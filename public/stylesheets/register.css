@@ -1,3 +1,16 @@
+.name-row{
+    display:flex;
+    gap:15px;
+    margin-bottom:18px;
+}
+
+.name-row .input-box{
+    flex:1;
+    margin-bottom:0;
+}
+
+
+
 .register-section{
 
 min-height:85vh;

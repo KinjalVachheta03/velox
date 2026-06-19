@@ -7,11 +7,14 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Velox Login</title>
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/stylesheets/style.css">
 
-<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="/stylesheets/login.css">
+
+
 
 </head>
 
@@ -20,6 +23,7 @@
 <!-- Header -->
 
 <div id="header"></div>
+<%- include("partials/header") %>
 
 <section class="login-section">
 
@@ -49,7 +53,7 @@
 
 Don't have an account?
 
-<a href="register.html">Register</a>
+<a href="/register">Register</a>
 
 </p>
 
@@ -59,9 +63,8 @@ Don't have an account?
 
 </section>
 
-<div id="footer">
-  
-</div>
+<%- include("partials/footer") %>
+<div id="footer"></div>
 
 
 </body>
