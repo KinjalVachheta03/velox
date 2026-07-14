@@ -1,0 +1,132 @@
+/* ==========================================
+   PREMIUM DARK HERO DESIGN (index.css)
+   ========================================== */
+
+.hero-section {
+    width: 100%;
+    min-height: calc(100vh - 70px); /* Adjusts nicely below your navbar */
+    background-color: #0f1115; /* Base deep dark color from your login card */
+    
+    /* Elegant smooth radial mesh gradient inspired by your login sidebar */
+    background-image: radial-gradient(circle at 80% 20%, rgba(255, 71, 87, 0.15) 0%, transparent 50%),
+                      radial-gradient(circle at 20% 80%, rgba(26, 29, 36, 1) 0%, transparent 60%);
+    
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glowing ambient light effect behind the text */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 71, 87, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.hero-content {
+    max-width: 680px;
+    z-index: 2; /* Ensures text stays sharply on top of the gradient */
+    animation: fadeInHero 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.hero-tagline {
+    color: #ff4757; /* Velox brand red */
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1.5px;
+    color: #ffffff;
+}
+
+.hero-content p {
+    color: #a4b0be; /* Muted slate grey text for high-end readability */
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    max-width: 580px;
+}
+
+/* Action Buttons */
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.btn-cta {
+    padding: 1.1rem 2.8rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: inline-block;
+}
+
+.btn-cta-primary {
+    background-color: #ff4757;
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(255, 71, 87, 0.3);
+}
+
+.btn-cta-primary:hover {
+    background-color: #e03d4f;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 71, 87, 0.45);
+}
+
+.btn-cta-secondary {
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    backdrop-filter: blur(5px);
+}
+
+.btn-cta-secondary:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #0f1115;
+    transform: translateY(-3px);
+}
+
+/* Smooth Entrance Animation */
+@keyframes fadeInHero {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    .hero-buttons {
+        flex-direction: column;
+    }
+    .btn-cta {
+        text-align: center;
+    }
+}

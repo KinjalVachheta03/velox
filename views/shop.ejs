@@ -1,0 +1,89 @@
+<%- include('partials/header') %>
+
+<main class="shop-main">
+
+      <% if (success && success.length > 0) { %>
+        <div class="flash-alert-toast success-toast">
+            <span class="flash-message-text">
+                <%= success %>
+            </span>
+            <button class="flash-close-btn" onclick="this.parentElement.remove()">&times;</button>
+        </div>
+    <% } %>
+
+    
+    <div class="shop-header">
+        <h1>Our <span>Collection</span></h1>
+        <p>Explore premium performance shoes and tactical lifestyle sandals.</p>
+    </div>
+
+    <div class="filter-bar">
+        <div class="search-box">
+            <input type="text" placeholder="Search products..." id="productSearch">
+        </div>
+        <div class="filter-box">
+            <select id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="shoes">Shoes</option>
+                <option value="sandals">Sandals</option>
+            </select>
+        </div>
+    </div>
+
+  <div class="product-grid">
+    <% products.forEach(function(product) { %>
+        <div class="product-card" data-category="<%= (product.category || 'all').toLowerCase() %>">
+            
+            <!-- Image Wrapper Container -->
+            <div class="product-image-container">
+                <% if (product.image) { %>
+                    <img class="product-image" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>" alt="<%= product.name %>">
+                <% } else { %>
+                    <div class="product-image-placeholder">[ No Image Available ]</div>
+                <% } %>
+            </div>
+            
+            <!-- Product Category Badge -->
+            <span class="product-category"><%= product.category || 'Footwear' %></span>
+
+            <!-- Product Display Name -->
+            <h3><%= product.name %></h3>
+            
+            <!-- Product Price Point -->
+            <div class="price-action-row">
+                    <p class="product-price">$<%= product.price %></p>
+                    <form action="/cart/add/<%= product._id %>" method="POST" style="display:inline;">
+                        <button type="submit" class="quick-add-btn">+</button>
+                    </form>
+        
+                </div>
+            
+        </div>
+    <% }) %>
+</div>
+</main>
+
+<script>
+const categoryFilter = document.getElementById("categoryFilter");
+const productCards = document.querySelectorAll(".product-card");
+
+categoryFilter.addEventListener("change", function () {
+
+    const selectedCategory = this.value;
+
+    productCards.forEach(card => {
+
+        const category = card.dataset.category;
+
+        if (selectedCategory === "all" || category === selectedCategory) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+});
+</script>
+
+<%- include('partials/footer') %>

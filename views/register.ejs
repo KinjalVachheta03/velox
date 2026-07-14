@@ -1,83 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Velox Register</title>
-
-<link rel="stylesheet" href="/stylesheets/style.css">
-
-<link rel="stylesheet" href="/stylesheets/register.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velox | Create Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
-
 <body>
 
-<div id="header"></div>
-<%- include("partials/header") %>
+    <div class="auth-fullpage-wrapper">
+        <!-- Spans completely across Left half -->
+        <div class="auth-sidebar">
+            <div class="sidebar-logo">VELOX<span>.</span></div>
+            <div class="sidebar-content">
+                <h1>Join the <br>Movement.</h1>
+                <p>Unlock early premium shoe drops, trace orders easily, and experience lightning checkout workflows.</p>
+            </div>
+            <div></div>
+        </div>
 
-<section class="register-section">
+        <!-- Spans completely across Right half -->
+        <div class="auth-form-panel">
+            <h2>Join Velox</h2>
+            <p class="subtitle">Create an account to start your journey</p>
+            
+            <form action="/users/register" method="POST" class="auth-form">
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required>
+                </div>
 
-<div class="register-card">
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="example@velox.com" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Minimum 8 characters" required>
+                </div>
 
-<h2>Create Account</h2>
 
-<p>Join VELOX today.</p>
+                <button type="submit" class="auth-submit-btn">Create Account</button>
+            </form>
 
-<form>
-
-<div class="name-row">
-
-    <div class="input-box">
-        <input type="text" name="firstName" placeholder="First Name" required>
+            <p class="auth-switch">Already have an account? <a href="/users/login">Log in</a></p>
+        </div>
     </div>
-
-    <div class="input-box">
-        <input type="text" name="lastName" placeholder="Last Name" required>
-    </div>
-
-</div>
-
-<div class="input-box">
-<input type="email" placeholder="Email" required>
-</div>
-
- <!-- Phone -->
-    <div class="input-box">
-        <input type="tel" name="phone" placeholder="Phone Number" required>
-    </div> 
-
-<div class="input-box">
-<input type="password" placeholder="Password" required>
-</div>
-
-<div class="input-box">
-<input type="password" placeholder="Confirm Password" required>
-</div>
-
-<button>Create Account</button>
-
-<p class="bottom-text">
-
-Already have an account?
-
-<a href="/login">Login</a>
-
-</p>
-
-</form>
-
-</div>
-
-</section>
-
-<%- include("partials/footer") %>
-<div id="footer"></div>
 
 </body>
-
 </html>

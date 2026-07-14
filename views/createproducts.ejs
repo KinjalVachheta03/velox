@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+
+
+
+<main class="admin-main">
+
+    <!-- <% if(success.length>0){ %>
+        <div class="absolute top-5 left-1/2 "></div>
+    <% } %> -->
+
+    <!-- INDUSTRY WAY: Clean Flash Notification Logic Block -->
+    <% if (success && success.length > 0) { %>
+        <div class="flash-alert-toast success-toast">
+            <span class="flash-message-text">
+                <%= success %>
+            </span>
+            <button class="flash-close-btn" onclick="this.parentElement.remove()">&times;</button>
+        </div>
+    <% } %>
+
+
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Add New <span>Product</span></h2>
+            <p>Fill in the details below to upload a new item to your storefront collection.</p>
+        </div>
+
+        <form action="/products/create" method="POST" enctype="multipart/form-data" class="product-form">
+            
+            <div class="input-group">
+                <label for="name">Product Name</label>
+                <input type="text" id="name" name="name" placeholder="e.g., Velox Carbon Elite" required>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="price">Price ($)</label>
+                    <input type="number" id="price" name="price" step="0.01" placeholder="e.g., 129.99" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="shoes">Shoes</option>
+                        <option value="sandals">Sandals</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="image">Select Image</label>
+                <input type="file" id="image" name="image" placeholder="Paste Unsplash URL or file path">
+            </div>
+
+            <div class="input-group">
+                <label for="description">Product Description</label>
+                <textarea id="description" name="description" rows="4" placeholder="Describe the material, comfort features, performance profile..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Publish Product</button>
+        </form>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

@@ -1,72 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<title>Velox Login</title>
-
-<link rel="stylesheet" href="/stylesheets/style.css">
-
-<link rel="stylesheet" href="/stylesheets/login.css">
-
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velox | Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
-
 <body>
+    
+    <div class="auth-fullpage-wrapper">
+        <!-- Spans completely across Left half -->
+        <div class="auth-sidebar">
+            <div class="sidebar-logo">VELOX<span>.</span></div>
+            <div class="sidebar-content">
+                <h1>Velocity in <br>Every Step.</h1>
+                <p>Explore premium shoes & sandals curated for elite performance and everyday trends.</p>
+            </div>
+            <div></div>
+        </div>
 
-<!-- Header -->
+        <!-- Spans completely across Right half -->
+        <div class="auth-form-panel">
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Log in to your Velox account</p>
+            
+            <form action="/users/login" method="POST" class="auth-form">
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="enter your email" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
 
-<div id="header"></div>
-<%- include("partials/header") %>
+                <div class="form-actions">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember"> Remember me
+                    </label>
+                    <a href="#" class="forgot-pass">Forgot Password?</a>
+                </div>
 
-<section class="login-section">
+                <button type="submit" class="auth-submit-btn">Sign In</button>
+            </form>
 
-<div class="login-card">
-
-<h2>Welcome Back</h2>
-
-<p>Login to continue shopping.</p>
-
-<form>
-
-<div class="input-box">
-
-<input type="email" placeholder="Email">
-
-</div>
-
-<div class="input-box">
-
-<input type="password" placeholder="Password">
-
-</div>
-
-<button>Login</button>
-
-<p class="bottom-text">
-
-Don't have an account?
-
-<a href="/register">Register</a>
-
-</p>
-
-</form>
-
-</div>
-
-</section>
-
-<%- include("partials/footer") %>
-<div id="footer"></div>
-
+            <p class="auth-switch">New to Velox? <a href="/users/register">Create an account</a></p>
+        </div>
+    </div>
+    
 
 </body>
-
 </html>

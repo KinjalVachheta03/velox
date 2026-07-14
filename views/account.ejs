@@ -1,0 +1,156 @@
+<%- include('partials/header') %>
+
+<main class="account-main">
+
+    <% if(success && success.length > 0){ %>
+        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500 z-50 shadow-lg min-w-[300px] text-center animate-fade-in">
+            <span class="inline-block mt-1 mb-1 text-white font-medium">
+                <%= success %>
+            </span>
+        </div>
+    <% } %>
+
+    <% if(error && error.length > 0){ %>
+        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500 z-50 shadow-lg min-w-[300px] text-center animate-fade-in">
+            <span class="inline-block mt-1 mb-1 text-white font-medium">
+                <%= error %>
+            </span>
+        </div>
+    <% } %>
+
+    <div class="account-dashboard-wrapper">
+        
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header-profile">
+                <div class="profile-avatar-frame">
+                    <% if (user.picture) { %>
+                        <img src="data:image/jpeg;base64,<%= user.picture.toString('base64') %>" class="user-avatar-element" alt="Profile Picture">
+                    <% } else { %>
+                        <span class="avatar-fallback-glyph">👤</span>
+                    <% } %>
+                </div>
+                <div class="profile-meta-data">
+                    <h4><%= user.fullname || 'Premium User' %></h4>
+                    <p><%= user.email %></p>
+                </div>
+            </div>
+            
+            <nav class="dashboard-nav-tabs">
+                <button class="tab-trigger active" onclick="switchDashboardTab(event, 'profile-tab')">
+                    <span class="tab-icon">👤</span> Profile Details
+                </button>
+                <button class="tab-trigger" onclick="switchDashboardTab(event, 'security-tab')">
+                    <span class="tab-icon">🔒</span> Password & Security
+                </button>
+                <a href="/cart" class="sidebar-static-link">
+                    <span class="tab-icon">🛒</span> My Cart
+                </a>
+                <a href="/shop" class="sidebar-static-link">
+                    <span class="tab-icon">👟</span> Shop Collection
+                </a>
+                <div class="nav-separator"></div>
+                <a href="/users/logout" class="sidebar-static-link logout-action">
+                    <span class="tab-icon">🚪</span> Logout
+                </a>
+            </nav>
+        </aside>
+
+        <section class="dashboard-content-viewport">
+            
+            <div id="profile-tab" class="dashboard-tab-panel active">
+                <div class="panel-heading">
+                    <h2>Profile Details</h2>
+                    <p>Manage your account personal identifiers and display identity picture.</p>
+                </div>
+
+                <div class="split-settings-row">
+                    <form action="/account/update-profile" method="POST" class="panel-inner-form">
+                        <div class="form-input-group">
+                            <label for="username">Username / Full Name</label>
+                            <input type="text" id="username" name="fullname" value="<%= user.fullname %>" required placeholder="Enter Your Full Name">
+                        </div>
+                        
+                        <div class="form-input-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" value="<%= user.email %>" required placeholder="Your email address">
+                        </div>
+                        
+                        <button type="submit" class="btn-dashboard-action primary-btn">Save Profile Changes</button>
+                    </form>
+
+                    <div class="avatar-upload-workspace">
+                        <div class="workspace-preview-box">
+                            <% if(user.picture){ %>
+                                <img src="data:image/jpeg;base64,<%= user.picture.toString('base64') %>" class="preview-rounded-image" alt="Profile Preview">
+                            <% } else { %>
+                                <div class="fallback-preview-circle">👤</div>
+                            <% } %>
+                        </div>
+                        
+                        <form action="/account/upload-picture" method="POST" enctype="multipart/form-data" class="avatar-form-wrapper">
+                            <div class="premium-file-input-wrapper">
+                                <label for="picture" class="file-choose-label">
+                                    <span>📸 Choose Image</span>
+                                    <input type="file" id="picture" name="picture" accept="image/*" required onchange="
+                                    if(this.files.length){
+                                    document.getElementById('file-chosen-text').textContent=this.files[0].name;
+                                    }else{
+                                    document.getElementById('file-chosen-text').textContent='No file selected';
+                                    }">
+                                </label>
+                                <span id="file-chosen-text" class="file-name-label">No file selected</span>
+                            </div>
+                            <button type="submit" class="btn-dashboard-action secondary-btn">Update Picture</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="security-tab" class="dashboard-tab-panel">
+                <div class="panel-heading">
+                    <h2>Password & Security</h2>
+                    <p>Change your authentication password metrics to secure your session integrity.</p>
+                </div>
+
+                <form action="/account/change-password" method="POST" class="panel-inner-form max-w-xl">
+                    <div class="form-input-group">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required placeholder="••••••••">
+                    </div>
+                    
+                    <div class="form-input-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" name="newPassword" required minlength="8" placeholder="Minimum 8 characters">
+                    </div>
+
+                    <div class="form-input-group">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required minlength="8" placeholder="Re-type your new security password">
+                    </div>
+                    
+                    <button type="submit" class="btn-dashboard-action accent-btn">Update Security Password</button>
+                </form>
+            </div>
+
+        </section>
+
+    </div>
+</main>
+
+<script>
+    function switchDashboardTab(event, tabId) {
+        // Hide all active view panels
+        const panels = document.querySelectorAll('.dashboard-tab-panel');
+        panels.forEach(panel => panel.classList.remove('active'));
+        
+        // Remove active state from alternative trigger buttons
+        const triggers = document.querySelectorAll('.tab-trigger');
+        triggers.forEach(trigger => trigger.classList.remove('active'));
+        
+        // Activate current selection
+        document.getElementById(tabId).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+</script>
+
+<%- include('partials/footer') %>

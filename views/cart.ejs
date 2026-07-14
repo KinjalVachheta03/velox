@@ -1,0 +1,87 @@
+<%- include('partials/header') %>
+
+<main class="cart-main">
+    <div class="cart-wrapper">
+        <h1 class="cart-title">Your <span>Shopping Cart</span></h1>
+
+        <% if (cart && cart.products.length > 0) { %>
+            <div class="cart-layout">
+                
+                <!-- Left Section: Premium Item Cards -->
+                <div class="cart-items-list">
+                    <% cart.products.forEach(function(item) { %>
+                        <div class="cart-item-card">
+                            <div class="cart-item-img">
+                                <% if (item.productId.image) { %>
+                                    <img src="data:image/jpeg;base64,<%= item.productId.image.toString('base64') %>" alt="<%= item.productId.name %>">
+                                <% } else { %>
+                                    <div class="cart-img-fallback">👟</div>
+                                <% } %>
+                            </div>
+                            
+                            <div class="cart-item-details">
+                                <span class="cart-item-cat">Variant: <%= item.productId.category || 'Standard' %></span>
+                                <h3><%= item.productId.name %></h3>
+                            </div>
+
+                            <!-- Right-aligned row utility alignment -->
+                            <div class="cart-item-controls">
+                                <span class="cart-item-price">₹<%= item.productId.price %></span>
+                                
+                                <!-- Dark-themed Quantity Pill Wrapper -->
+                                <div class="qty-pill">
+                                    <form action="/cart/decrease/<%= item.productId._id %>" method="POST">
+                                        <button type="submit">-</button>
+                                    </form>
+                                    <span class="qty-display"><%= item.quantity %></span>
+                                    <form action="/cart/increase/<%= item.productId._id %>" method="POST">
+                                        <button type="submit">+</button>
+                                    </form>
+                                </div>
+
+                                <form action="/cart/remove/<%= item.productId._id %>" method="POST">
+                                    <button type="submit" class="remove-item-btn">
+                                                        🗑️
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    <% }) %>
+                    
+                    <!-- Continue Shopping Link Placement underneath items list row -->
+                    <a href="/shop" class="continue-shopping-link">← Continue Shopping</a>
+                </div>
+
+                <!-- Right Section: Checkout Summary Box Grid -->
+                <div class="cart-summary-panel">
+                    <h3>Order Summary</h3>
+                    <hr class="summary-divider">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>₹<%= subtotal %></span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Estimated Shipping</span>
+                        <span style="color: #2ed573;">Free</span>
+                    </div>
+                    <hr class="summary-divider">
+                    <div class="summary-row total-row">
+                        <span>Total Amount</span>
+                        <span>₹<%= subtotal %></span>
+                    </div>
+                    <button class="btn-checkout" onclick="window.location.href='/checkout'">Proceed to Checkout</button>
+                </div>
+
+            </div>
+        <% } else { %>
+            <div class="empty-cart-box">
+                <div class="empty-icon">🛒</div>
+                <h2>Your cart feels empty</h2>
+                <p>You haven't added any products to your bag yet.</p>
+                <a href="/shop" class="btn-shop-now">Explore Collection</a>
+            </div>
+        <% } %>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
